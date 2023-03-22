@@ -5,14 +5,13 @@ from models import storage_type
 from models.city import City
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
-from models import storage
 
 
-class State(BaseModel):
-    """ State class """
-    __tablename__ = "states"
-    if storage_type == "db":
-        name = Coumn(String(60), nullable=False)
+class State(BaseModel, Base):
+    """ State class / table model"""
+    __tablename__ = 'states'
+    if storage_type == 'db':
+        name = Column(String(128), nullable=False)
         cities = relationship('City', backref='state',
                               cascade='all, delete, delete-orphan')
     else:
@@ -24,7 +23,7 @@ class State(BaseModel):
                 equals the current State.id
                 FileStorage relationship between State and City
             '''
-
+            from models import storage
             related_cities = []
             cities = storage.all(City)
             for city in cities.values():
