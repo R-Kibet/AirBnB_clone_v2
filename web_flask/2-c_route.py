@@ -22,7 +22,7 @@ def scnd():
 @app.route('/c/<text>', strict_slashes=False)
 def thrd(text):
     """ using rule in route """
-    return "C " + str(text)
+    return "C " + str(text.replace('_', ' '))
 
 
 if __name__ == '__main__':
